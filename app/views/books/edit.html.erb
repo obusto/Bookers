@@ -1,2 +1,22 @@
-<h1>Books#edit</h1>
-<p>Find me in app/views/books/edit.html.erb</p>
+<% flash.each do |name, msg| %>
+    <%= content_tag :p, msg, id: name %>
+<% end %>
+
+<%= form_with model:@book, id: "edit_book", class: "edit_book", local:true do |f| %>
+    <div class = "field">
+        <%= f.label :title, "Title" %>
+        <%= f.text_field :title, id: "book_title", class: "book_title" %>
+    </div>
+
+    <div class = "field">
+        <%= f.label :body, "Body" %>
+        <%= f.text_area :body, id: "book_body", class: "book_body" %>
+    </div>
+
+    <div class = "actions">
+        <%= f.submit 'Update Book' %>
+    </div>
+<% end %>
+<%= link_to "Edit", edit_book_path %>
+|
+<%= link_to "Back", books_path %>
