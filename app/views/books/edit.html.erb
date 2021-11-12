@@ -2,21 +2,53 @@
     <%= content_tag :p, msg, id: name %>
 <% end %>
 
-<%= form_with model:@book, id: "edit_book", class: "edit_book", local:true do |f| %>
-    <div class = "field">
-        <%= f.label :title, "Title" %>
-        <%= f.text_field :title, id: "book_title", class: "book_title" %>
-    </div>
+<% if @book.errors.any? %>
+    <%= form_with model:@book, id: "edit_book", class: "edit_book", local:true do |f| %>
+        <div id="error_explanation">
+            <h2><%= @book.errors.count %> error prohibited this book from being saved:</h2>
+            <ul>
+                <% @book.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
 
-    <div class = "field">
-        <%= f.label :body, "Body" %>
-        <%= f.text_area :body, id: "book_body", class: "book_body" %>
-    </div>
+        <div class = "field">
+            <div <%= 'class = "field_with_errors"' if @book.errors.messages.has_key?(:title) %>>
+                <%= f.label :title, "Title" %>
+                <%= f.text_field :title, id: "book_title", class: "book_title" %>
+            </div>
+        </div>
 
-    <div class = "actions">
-        <%= f.submit 'Update Book' %>
-    </div>
+        <div  class = "field">
+            <div <%= 'class = "field_with_errors"' if @book.errors.messages.has_key?(:body) %>>
+                <%= f.label :body, "Body" %>
+                <%= f.text_area :body, id: "book_body", class: "book_body" %>
+            </div>
+        </div>
+
+        <div class = "actions">
+            <%= f.submit 'Update Book' %>
+        </div>
+    <% end %>
+<% else %>
+    <%= form_with model:@book, id: "edit_book", class: "edit_book", local:true do |f| %>
+        <div class = "field">
+            <%= f.label :title, "Title" %>
+            <%= f.text_field :title, id: "book_title", class: "book_titrails le" %>
+        </div>
+
+        <div class = "field">
+            <%= f.label :body, "Body" %>
+            <%= f.text_area :body, id: "book_body", class: "book_body" %>
+        </div>
+
+        <div class = "actions">
+            <%= f.submit 'Update Book' %>
+        </div>
+    <% end %>
 <% end %>
-<%= link_to "Edit", edit_book_path %>
+
+<%= link_to "Show", book_path(@book.id) %>
 |
 <%= link_to "Back", books_path %>
