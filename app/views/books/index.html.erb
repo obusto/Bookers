@@ -22,10 +22,10 @@
     </tbody>
 </table>
 
-<h2>New Book</h2
+<h2>New Book</h2>
 
-<%= form_with model:@book, id: "new_book", class: "new_book", url: books_path, local:true do |f| %>
-    <% if @book.errors.any? %>
+<% if @book.errors.any? %>
+    <%= form_with model:@book, id: "new_book", class: "new_book", url: books_path, local:true do |f| %>
         <div id="error_explanation">
             <h2><%= @book.errors.count %> error prohibited this book from being saved:</h2>
             <ul>
@@ -36,14 +36,14 @@
         </div>
 
         <div class = "field">
-            <div class = "field_with_errors">
+            <div <%= 'class = "field_with_errors"' if @book.errors.messages.has_key?(:title) %>>
                 <%= f.label :title, "Title" %>
                 <%= f.text_field :title, id: "book_title", class: "book_title" %>
             </div>
         </div>
 
-        <div class = "field">
-            <div class = "field_with_errors">
+        <div  class = "field">
+            <div <%= 'class = "field_with_errors"' if @book.errors.messages.has_key?(:body) %>>
                 <%= f.label :body, "Body" %>
                 <%= f.text_area :body, id: "book_body", class: "book_body" %>
             </div>
@@ -52,10 +52,12 @@
         <div class = "actions">
             <%= f.submit 'Create Book' %>
         </div>
-    <% else %>
+    <% end %>
+<% else %>
+    <%= form_with model:@book, id: "new_book", class: "new_book", url: books_path, local:true do |f| %>
         <div class = "field">
             <%= f.label :title, "Title" %>
-            <%= f.text_field :title, id: "book_title", class: "book_title" %>
+            <%= f.text_field :title, id: "book_title", class: "book_titrails le" %>
         </div>
 
         <div class = "field">
@@ -67,7 +69,4 @@
             <%= f.submit 'Create Book' %>
         </div>
     <% end %>
-
-
-
 <% end %>

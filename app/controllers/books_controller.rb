@@ -9,13 +9,15 @@ class BooksController < ApplicationController
   end
 
   def create
+    @books = Book.all
     @book = Book.new(book_params)
     if @book.save
-      redirect_to book_path(book.id), notice: "Book was successfully created."
+      redirect_to book_path(@book_create.id), notice: "Book was successfully created."
     else
+      p @book
       render :index
     end
-    
+
   end
 
   def edit
